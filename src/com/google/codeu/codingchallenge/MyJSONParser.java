@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/*
+ * Code to parse a JSON-lite object. Not completely done, but I am willing to learn and improve
+ * from my mistakes.
+ */
 package com.google.codeu.codingchallenge;
 
 import java.io.IOException;
@@ -32,21 +36,35 @@ final class MyJSONParser implements JSONParser {
 		throw new IOException("Starting and/or ending character does not end in correct bracket");
 	}
 	if (in.length() < 2) {
-		throw new IOException("Length is too small");
+		throw new IOException("Length is too short");
 	}
 	
-	
+	in = deleteWhiteSpaces(in);
+	in = in.substring(1, in.length()-1);
+	for(int i=0; i<in.length();i++) {
+		char c = in.charAt(i);
+		if (c == ':') {
+			if (in.charAt(i+1) == '"') {
+				
+			} else if (in.charAt(i+1) == '{') {
+				
+			} else {
+				throw new IOException("A key does not have a value");
+			}
+		}
+	}
     return new MyJSON();
   }
   
   
   
-  // Checking if parentheses, square brackets, and curly brackets are balanced
-  // Presence of parentheses or brackets in the string was not noted in instructions 
-  // but added in code just in case
+  /*Checking if parentheses, square brackets, and curly brackets are balanced
+  	Presence of parentheses or brackets in the string was not noted in instructions 
+    but added in code just in case
+  */
   private boolean checkBalance(String str) {
 	 Stack<Character> stack = new Stack<Character>();
-	 for (int i=0; i<str.length()-1; i++) {
+	 for (int i=0; i<str.length(); i++) {
 		 char currentChar = str.charAt(i);
 		 if (currentChar == '{' || currentChar == '(' || currentChar == '[') {
 			 stack.push(currentChar);
@@ -82,5 +100,16 @@ final class MyJSONParser implements JSONParser {
 		  }
 	  }
 	  return true;
+  }
+  
+  private String deleteWhiteSpaces(String str) {
+	  StringBuilder stringBuilder = new StringBuilder();
+	  for (int i=0; i<str.length(); i++) {
+		  char currentChar = str.charAt(i);
+		  if (currentChar != ' ') {
+			  stringBuilder.append(currentChar);
+		  }
+	  }
+	  return stringBuilder.toString();
   }
 }

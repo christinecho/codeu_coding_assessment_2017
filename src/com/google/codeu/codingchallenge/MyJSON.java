@@ -29,7 +29,6 @@ final class MyJSON implements JSON {
 
   @Override
   public JSON setObject(String name, JSON value) {
-	stringsMap.remove(name);
     objectsMap.put(name, value);
     return this;
   }
@@ -41,7 +40,6 @@ final class MyJSON implements JSON {
 
   @Override
   public JSON setString(String name, String value) {
-    objectsMap.remove(name);
     stringsMap.put(name, value);
     return this;
   }
