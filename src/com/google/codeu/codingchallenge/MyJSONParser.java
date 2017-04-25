@@ -21,15 +21,15 @@ final class MyJSONParser implements JSONParser {
 
   @Override
   public JSON parse(String in) throws IOException {
-    // TODO: implement this
 	in = in.trim();
+	JSON obj = new MyJSON();
 	
 	// check that input is valid
 	if (!(checkBalance(in) && checkEscapableCharacters(in))) {
 		throw new IOException();
 	}
 	if (!(in.charAt(0) == '{' && in.charAt(in.length()-1) == '}')) {
-		throw new IOException("Starting or ending character is not correct");
+		throw new IOException("Starting and/or ending character does not end in correct bracket");
 	}
 	if (in.length() < 2) {
 		throw new IOException("Length is too small");
@@ -39,7 +39,9 @@ final class MyJSONParser implements JSONParser {
     return new MyJSON();
   }
   
-  // Checking if parentheses, brackets, curly brackets, and quotes are balanced
+  
+  
+  // Checking if parentheses, square brackets, and curly brackets are balanced
   // Presence of parentheses or brackets in the string was not noted in instructions 
   // but added in code just in case
   private boolean checkBalance(String str) {
