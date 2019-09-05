@@ -1,3 +1,4 @@
+Accepted into CodeU, but due to schedule conflicts could not ultimately participate.
 
 # CodeU Coding Sample
 
